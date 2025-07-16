@@ -19,8 +19,6 @@ const signInImage = {
           :alt="signInImage.alt"
           loading="lazy"
         />
-        <p>Lendsqr</p>
-        <h1>Enter the world of all finance in one place</h1>
       </div>
     </div>
   </div>
