@@ -1,7 +1,7 @@
 <template>
   <div class="app-author">
     <img
-      :src="image?.src || defaultAvatar.src"
+      :src="avatarSrc"
       :alt="image?.alt || defaultAvatar.alt"
       :loading="image?.loading || 'lazy'"
       class="app-author__image"
@@ -15,13 +15,40 @@
 
 <script setup lang="ts">
 import type { AvatarProps } from '@/types'
+import { ref, watch, onMounted } from 'vue'
 
 const { image, name } = defineProps<AvatarProps>()
 
 const defaultAvatar = {
-  src: 'https://avatar.iran.liara.run/public/15',
+  src: '/images/profile.jpg',
   alt: 'Profile avatar',
 }
+
+const avatarSrc = ref(defaultAvatar.src)
+
+function tryLoadImage(src?: string) {
+  if (!src) return
+  const img = new window.Image()
+  img.onload = () => {
+    avatarSrc.value = src
+  }
+  img.onerror = () => {
+    avatarSrc.value = defaultAvatar.src
+  }
+  img.src = src
+}
+
+onMounted(() => {
+  tryLoadImage(image?.src)
+})
+
+watch(
+  () => image?.src,
+  (val) => {
+    avatarSrc.value = defaultAvatar.src
+    tryLoadImage(val)
+  },
+)
 </script>
 
 <style lang="scss" scoped>

@@ -41,7 +41,7 @@ const handleLogin = async () => {
   try {
     loading.value = true
     await authStore.login(inputEmailText.value, inputPasswordText.value)
-    router.push({ name: 'home' })
+    router.push('/home')
   } catch (err) {
     error.value = 'Invalid email or password'
     console.error(err)
