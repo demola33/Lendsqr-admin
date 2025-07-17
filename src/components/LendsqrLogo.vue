@@ -1,7 +1,31 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { toRefs } from 'vue'
+
+interface LogoProps {
+  /**
+   * Size of the logo.
+   *
+   * @default 'medium'
+   */
+  size?: 'medium' | 'large'
+}
+
+const props = withDefaults(defineProps<LogoProps>(), {
+  size: 'medium',
+})
+
+const { size } = toRefs(props)
+</script>
 
 <template>
-  <svg width="174" height="36" viewBox="0 0 174 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    :class="`lendsqr-logo lendsqr-logo--${size}`"
+    width="174"
+    height="36"
+    viewBox="0 0 174 36"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -49,4 +73,22 @@
   </svg>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.lendsqr-logo {
+  width: var(--logo-width);
+  height: var(--logo-height);
+  transition:
+    width 1s ease-in-out,
+    height 1s ease-in-out;
+
+  &--medium {
+    --logo-width: #{rem-calc(145px)};
+    --logo-height: #{rem-calc(30px)};
+  }
+
+  &--large {
+    --logo-width: #{rem-calc(175px)};
+    --logo-height: #{rem-calc(36px)};
+  }
+}
+</style>
