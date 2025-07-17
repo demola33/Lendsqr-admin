@@ -11,3 +11,14 @@ export interface AppInputProps {
   hint?: string
   inputClass?: string | string[] | Record<string, boolean>
 }
+
+export interface ImageProps {
+  src: string
+  alt: string
+  loading?: 'lazy' | 'eager'
+}
+
+export interface AvatarProps {
+  name: string
+  image?: ImageProps
+}
