@@ -7,6 +7,11 @@ export const useAuthStore = defineStore('auth', {
     adminUser: null as AdminUser | null,
     token: localStorage.getItem('authToken') || null,
   }),
+  persist: {
+    key: 'auth',
+    storage: localStorage,
+    pick: ['adminUser'],
+  },
   actions: {
     async login(email: string, password: string) {
       const credentials: LoginCredentials = { email, password }
