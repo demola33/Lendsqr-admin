@@ -1,0 +1,103 @@
+@use '../typography' as typography;
+@import 'include-media/dist/include-media.scss';
+
+/// Centers the contents of a flex-box.
+@mixin flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/// Mixin that sets a text style based on a name.
+///
+/// @param {String} $name - The name of the text style.
+/// @param {String} $weight [optional] - The weight of the text style.
+///                          Defaults to 'regular'.
+/// @param {String} $device [optional] - The device on which to apply the
+///                          text style. Defaults to 'both'.
+///
+@mixin set-text-style($name, $weight: 'regular', $device: 'both') {
+  // Get the text styles map from the typography module.
+  $text-styles: typography.$text-styles;
+
+  // Get the styles for the specified weight.
+  $default-styles: map-get($text-styles, 'all');
+  $weight-styles: map-get($default-styles, $weight);
+
+  // Apply the styles for the specified weight.
+  @each $key, $value in $weight-styles {
+    #{$key}: $value;
+  }
+
+  // If the device is 'both' or 'mobile', apply the mobile-and-tablet
+  // styles.
+  @if $device == 'both' or $device == 'mobile' {
+    $mobile-styles: map-get($text-styles, 'mobile-and-tablet');
+    $named-styles: map-get($mobile-styles, $name);
+
+    // Throw an error if the named style is not found.
+    @if $named-styles == null {
+      $message: "'" + $name + "'" + ' is not a valid name for a mobile text style.';
+      $message: $message + ' The valid styles are: ';
+
+      $i: 0;
+      $len: map-length($mobile-styles);
+
+      @each $key, $_ in $mobile-styles {
+        @if $i != 0 {
+          @if $i == ($len - 1) {
+            $message: $message + ' and ';
+          } @else {
+            $message: $message + ', ';
+          }
+        }
+        $message: $message + $key;
+        $i: $i + 1;
+      }
+
+      @error $message;
+    }
+
+    // Apply the named styles.
+    @each $key, $value in $named-styles {
+      #{$key}: $value;
+    }
+  }
+
+  // If the device is 'both' or 'desktop', and the screen width is > medium,
+  // apply the desktop styles.
+  @if $device == 'both' or $device == 'desktop' {
+    @include media('>medium') {
+      $desktop-styles: map-get($text-styles, 'desktop');
+      $named-styles: map-get($desktop-styles, $name);
+
+      // Throw an error if the named style is not found.
+      @if $named-styles == null {
+        $message: "'" + $name + "'" + ' is not a valid name for a desktop text style.';
+        $message: $message + ' The valid styles are: ';
+
+        $i: 0;
+        $len: map-length($mobile-styles);
+
+        @each $key, $_ in $mobile-styles {
+          @if $i != 0 {
+            @if $i == ($len - 1) {
+              $message: $message + ' and ';
+            } @else {
+              $message: $message + ', ';
+            }
+          }
+          $message: $message + $key;
+          $i: $i + 1;
+        }
+
+        @error $message;
+      }
+
+      // Apply the named styles.
+      @each $key, $value in $named-styles {
+        #{$key}: $value;
+      }
+    }
+  }
+}

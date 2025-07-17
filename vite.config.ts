@@ -6,13 +6,21 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import '@/assets/scss/utils/_unit.scss';
+          @import '@/assets/scss/_variables.scss';
+          @import '@/assets/scss/utils/_mixins.scss';
+        `,
+      },
     },
   },
 })
