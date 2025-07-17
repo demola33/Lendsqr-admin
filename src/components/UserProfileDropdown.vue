@@ -123,7 +123,7 @@ function logout() {
 
   &__caret {
     height: rem-calc(12px);
-    width: rem-calc(12px);
+    width: rem-calc(28px);
     color: inherit;
     transition-duration: $default-transition-speed;
 

@@ -120,6 +120,10 @@ const toggleMobileMenu = () => {
 
     @include media('>medium') {
       display: block;
+      width: rem-calc(250px);
+    }
+
+    @include media('>large') {
       width: rem-calc(400px);
     }
   }
@@ -128,6 +132,7 @@ const toggleMobileMenu = () => {
     display: none;
 
     @include media('>medium') {
+      flex: 1;
       display: block;
     }
   }
@@ -151,7 +156,10 @@ const toggleMobileMenu = () => {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    @include media('>medium') {
+      justify-content: space-between;
+    }
   }
 
   &__right-col-content {
@@ -160,6 +168,10 @@ const toggleMobileMenu = () => {
     align-items: center;
     justify-content: flex-end;
     color: $primary-text-color;
+
+    @include media('>medium') {
+      flex: 2;
+    }
   }
 
   &__docs-link {
