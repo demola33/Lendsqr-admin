@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default <RouteRecordRaw>{
-  name: 'Dashboard',
+  name: 'HomeDashboard',
   path: 'home',
-  meta: { layout: 'dashboard' },
+  meta: { layout: 'DashboardLayout', requiresAuth: true },
   children: [
     {
-      name: 'User Dashboard',
+      name: 'Home',
       path: '',
       component: () => import('./HomeView.vue'),
     },

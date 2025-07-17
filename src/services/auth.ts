@@ -4,9 +4,9 @@ import type { AdminUser, LoginCredentials } from '@/types'
 const ADMIN_USERS: AdminUser[] = [
   {
     id: 'admin-001',
-    name: 'Super Admin',
+    name: 'Admin',
     email: 'admin@smartlenders.com',
-    role: 'superadmin',
+    role: 'admin',
     organization: 'global',
     imageUrl: 'https://i.pravatar.cc/300',
   },
