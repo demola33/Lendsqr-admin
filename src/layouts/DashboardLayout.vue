@@ -32,8 +32,6 @@ import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
     padding-top: rem-calc(100px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: rem-calc(32px);
 
     @include media('>medium') {

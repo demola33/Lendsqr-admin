@@ -113,7 +113,7 @@ const toggleMobileMenu = () => {
   padding-inline: rem-calc(30px);
   transition-duration: $default-transition-speed;
   z-index: $header-and-nav-z-index;
-  box-shadow: rem-calc(3px 0 20px 0 rgba(0, 0, 0, 0.04));
+  box-shadow: rem-calc(3px 0 20px 0) rgba(0, 0, 0, 0.04);
 
   &__search-bar {
     display: none;

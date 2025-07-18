@@ -1,8 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router'
+import IDRoutes from './[id]/[id].routes'
 
 export default <RouteRecordRaw>{
-  name: 'UsersDashboard',
+  name: 'Users',
   path: 'users',
   meta: { layout: 'DashboardLayout', requiresAuth: true },
-  component: () => import('./UsersView.vue'),
+  children: [
+    {
+      path: '',
+      name: 'UsersDashboard',
+      component: () => import('./UsersView.vue'),
+    },
+    IDRoutes,
+  ],
 }

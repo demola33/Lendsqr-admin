@@ -98,9 +98,12 @@ function logout() {
 
   .dropdown-item {
     @include set-text-style('body-text-sm');
-    padding: rem-calc(6px 0);
-    border-radius: rem-calc(8px);
-    color: inherit;
+
+    & {
+      padding: rem-calc(6px 0);
+      border-radius: rem-calc(8px);
+      color: inherit;
+    }
 
     &:hover,
     &:active,

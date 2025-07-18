@@ -128,7 +128,7 @@ const shownSettingsNavLinks = computed(() => {
   width: 100%;
   background-color: $white;
   z-index: 90;
-  box-shadow: rem-calc(0 5px 20px 0 rgba(0, 0, 0, 0.04));
+  box-shadow: rem-calc(0 5px 20px 0) rgba(0, 0, 0, 0.04);
   transition-duration: $default-transition-speed;
 
   &__icon-container,

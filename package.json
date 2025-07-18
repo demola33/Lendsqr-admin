@@ -15,13 +15,14 @@
     "generate-icons": "node src/scripts/node/generateIcons.mjs"
   },
   "dependencies": {
+    "@bhplugin/vue3-datatable": "^2.0.2",
     "@vueuse/core": "^13.5.0",
     "bootstrap": "^5.3.7",
     "bootstrap-vue-next": "^0.30.4",
     "include-media": "^2.0.0",
+    "motion-v": "^1.0.1",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.4.1",
-    "motion-v": "^1.0.1",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
