@@ -34,7 +34,7 @@ const iconBackground = computed(() => {
   @include flex-centered;
 
   & {
-    width: rem-calc(240px);
+    width: 100%;
     height: rem-calc(160px);
     gap: rem-calc(16px);
     flex-direction: column;
@@ -45,6 +45,10 @@ const iconBackground = computed(() => {
     border: rem-calc(1px) solid rgba($color: $primary-text-color, $alpha: 0.06);
     box-shadow: rem-calc(3px 5px 20px 0) rgba(0, 0, 0, 0.04);
     transition: scale $default-transition-speed;
+
+    @include media('>large') {
+      width: rem-calc(240px);
+    }
   }
 
   &:hover {

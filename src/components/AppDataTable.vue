@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PropType } from 'vue'
+import { computed, type PropType } from 'vue'
 import type { User } from '@/types'
 // @ts-expect-error: Type declarations for '@bhplugin/vue3-datatable' are not resolved correctly.
 import Vue3Datatable from '@bhplugin/vue3-datatable'
@@ -23,6 +23,10 @@ const props = defineProps({
     type: Array as PropType<User[]>,
     default: () => [],
   },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const router = useRouter()
@@ -41,14 +45,22 @@ const activateUser = (row: User) => {
   console.log('Activate user', row)
   // Implement logic
 }
+
+const isLoading = computed(() => {
+  return props.isLoading
+})
 </script>
 
 <template>
   <Vue3Datatable
+    :loading="isLoading"
     :rows="props.rows"
     :columns="columns"
     :totalRows="props.rows.length"
     :sortable="true"
+    :showFirstPage="false"
+    :showLastPage="false"
+    :stickyHeader="true"
     :rowsPerPageOptions="[10, 25, 50, 100]"
     class="app-data-table"
     @row-click="viewDetails"
@@ -195,11 +207,6 @@ const activateUser = (row: User) => {
   }
 
   .bh-pagination {
-    .bh-page-item.first-page,
-    .bh-page-item.last-page {
-      display: none;
-    }
-
     .bh-page-item.previous-page,
     .bh-page-item.next-page {
       background-color: rgba($color: $primary-text-color, $alpha: 0.1);

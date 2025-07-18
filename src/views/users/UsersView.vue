@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
 import AppDashboardCard from '@/components/AppDashboardCard.vue'
 import { dashboardCards } from '@/constants'
 import AppDataTable from '@/components/AppDataTable.vue'
@@ -23,34 +22,31 @@ onMounted(async () => {
 </script>
 
 <template>
-  <BContainer>
-    <BRow>
-      <BCol>
-        <section class="users-view">
-          <h1 class="users-view__title">Users</h1>
-          <div class="users-view__cards">
-            <AppDashboardCard
-              v-for="card in dashboardCards"
-              :key="card.title"
-              :icon="card.icon"
-              :title="card.title"
-              :value="card.value"
-              :color="card.color"
-            />
-          </div>
-          <div class="users-view__table">
-            <div v-if="isLoading" class="users-view__loading">Loading users...</div>
-            <AppDataTable v-else :rows="users" />
-          </div>
-        </section>
-      </BCol>
-    </BRow>
-  </BContainer>
+  <section class="users-view">
+    <h1 class="users-view__title">Users</h1>
+    <div class="users-view__cards">
+      <AppDashboardCard
+        v-for="card in dashboardCards"
+        :key="card.title"
+        :icon="card.icon"
+        :title="card.title"
+        :value="card.value"
+        :color="card.color"
+      />
+    </div>
+    <div class="users-view__table">
+      <AppDataTable :rows="users" :is-loading="isLoading" />
+    </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
 .users-view {
-  padding-block: rem-calc(60px) rem-calc(40px);
+  padding-block: rem-calc(20px) rem-calc(120px);
+
+  @include media('>medium') {
+    padding-block: rem-calc(60px) rem-calc(40px);
+  }
 
   &__title {
     @include set-text-style('heading-6', 'medium');
@@ -61,10 +57,12 @@ onMounted(async () => {
   }
 
   &__cards {
-    @include flex-centered;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem-calc(24px);
 
-    & {
-      gap: rem-calc(24px);
+    @include media('>large') {
+      display: flex;
     }
   }
 

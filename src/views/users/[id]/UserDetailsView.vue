@@ -22,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <div class="user-details-view">
-    <h1>User Details</h1>
+    <h1 class="user-details-view__title">User Details</h1>
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="user">
       <p>Username: {{ user.username }}</p>
@@ -36,11 +36,15 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .user-details-view {
-  padding: rem-calc(40px);
+  padding-block: rem-calc(20px) rem-calc(120px);
 
-  h1 {
-    @include set-text-style('heading-4', 'medium');
-    margin-bottom: rem-calc(24px);
+  @include media('>medium') {
+    padding-block: rem-calc(60px) rem-calc(40px);
+  }
+
+  &__title {
+    @include set-text-style('heading-6', 'medium');
+    margin-bottom: rem-calc(40px);
   }
 
   p {
