@@ -90,16 +90,6 @@ button {
   vertical-align: baseline;
 }
 
-html,
-body {
-  overflow-x: hidden;
-}
-
-html.not-scrollable,
-html.not-scrollable body {
-  overflow-y: hidden;
-}
-
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

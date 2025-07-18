@@ -10,11 +10,15 @@ export type IconName =
 | 'ChartBar'
 | 'ClipBoardList'
 | 'CoinSolid'
+| 'EyeIcon'
+| 'FileCoin'
 | 'HandShake'
 | 'Home'
 | 'MobileExchange'
 | 'MoneyBag'
 | 'MoneyLend'
+| 'MoreVertical'
+| 'MultiUsersOutline'
 | 'MultipleUsers'
 | 'PiggyBank'
 | 'ScrollSolid'
@@ -25,5 +29,6 @@ export type IconName =
 | 'UserCheck'
 | 'UserSetting'
 | 'Users'
+| 'UsersOutline'
 ;
 

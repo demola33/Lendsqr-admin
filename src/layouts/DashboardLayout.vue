@@ -2,6 +2,14 @@
 import AppHeader from '@/components/AppHeader.vue'
 import AppNavigation from '@/components/AppNavigation.vue'
 import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
+import { useWindowSize } from '@vueuse/core'
+import { computed } from 'vue'
+
+const { width } = useWindowSize()
+
+const isMobile = computed(() => {
+  return width.value <= 768
+})
 </script>
 
 <template>
@@ -13,7 +21,13 @@ import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
       <BRow>
         <BCol>
           <main class="dashboard-layout__main">
-            <RouterView />
+            <BContainer :fluid="isMobile" :class="{ 'p-0': isMobile }">
+              <BRow>
+                <BCol>
+                  <RouterView />
+                </BCol>
+              </BRow>
+            </BContainer>
           </main>
         </BCol>
       </BRow>
@@ -32,8 +46,6 @@ import { BContainer, BRow, BCol } from 'bootstrap-vue-next'
     padding-top: rem-calc(100px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: rem-calc(32px);
 
     @include media('>medium') {
