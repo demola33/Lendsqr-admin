@@ -81,10 +81,16 @@ const isLoading = computed(() => {
           <BDropdownItem @click="viewDetails(data.value)">
             <AppIcon name="EyeIcon" class="app-data-table__icon" /> View Details
           </BDropdownItem>
-          <BDropdownItem @click="blacklistUser(data.value)">
+          <BDropdownItem
+            @click="blacklistUser(data.value)"
+            :disabled="data.value.status === 'Blacklisted'"
+          >
             <AppIcon name="UserCancel" class="app-data-table__icon" /> Blacklist User
           </BDropdownItem>
-          <BDropdownItem @click="activateUser(data.value)">
+          <BDropdownItem
+            @click="activateUser(data.value)"
+            :disabled="data.value.status === 'Active'"
+          >
             <AppIcon name="UserCheck" class="app-data-table__icon" /> Activate User
           </BDropdownItem>
         </BDropdown>
@@ -133,6 +139,7 @@ const isLoading = computed(() => {
       & {
         color: $secondary-text-color;
         padding-block: rem-calc(20px);
+        text-wrap-mode: nowrap;
       }
 
       .dropdown-toggle {
@@ -167,6 +174,11 @@ const isLoading = computed(() => {
         &:active {
           background-color: $primary-color;
           color: $white;
+        }
+
+        &:disabled {
+          color: $gray-shade-300;
+          cursor: not-allowed;
         }
       }
     }
