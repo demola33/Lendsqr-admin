@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import AppDashboardCard from '@/components/AppDashboardCard.vue'
-import { dashboardCards } from '@/constants'
 import AppDataTable from '@/components/AppDataTable.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { fetchUsers } from '@/services/users'
-import type { User } from '@/types'
+import type { DashboardCard, User } from '@/types'
 
 const users = ref<User[]>([])
 const isLoading = ref<boolean>(true)
@@ -19,6 +18,35 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
+
+const dynamicCards = computed<DashboardCard[]>(() => [
+  {
+    icon: 'UsersOutline',
+    title: 'Users',
+    value: users.value.length.toLocaleString(),
+    color: '#DF18FF',
+  },
+  {
+    icon: 'MultiUsersOutline',
+    title: 'Active Users',
+    value: users.value.filter((u) => u.status === 'Active').length.toLocaleString(),
+    color: '#5718FF',
+  },
+  {
+    icon: 'FileCoin',
+    title: 'Users with Loans',
+    value: users.value.filter((u) => u.loanRepayment > 0).length.toLocaleString(),
+    color: '#F55F44',
+  },
+  {
+    icon: 'CoinSolid',
+    title: 'Users with Savings',
+    value: users.value
+      .filter((u) => parseFloat(u.monthlyIncome.replace(/[^0-9.-]+/g, '')) > 0)
+      .length.toLocaleString(), // Assuming savings if monthlyIncome > 0
+    color: '#FF3366',
+  },
+])
 </script>
 
 <template>
@@ -26,7 +54,7 @@ onMounted(async () => {
     <h1 class="users-view__title">Users</h1>
     <div class="users-view__cards">
       <AppDashboardCard
-        v-for="card in dashboardCards"
+        v-for="card in dynamicCards"
         :key="card.title"
         :icon="card.icon"
         :title="card.title"
