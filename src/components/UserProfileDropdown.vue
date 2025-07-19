@@ -52,7 +52,7 @@ const userProfileImage = computed(
   }),
 )
 
-function logout() {
+const logout = () => {
   auth.logout()
   router.push('/login')
 }

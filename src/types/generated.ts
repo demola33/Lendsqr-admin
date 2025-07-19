@@ -15,6 +15,8 @@ export type IconName =
 | 'FileCoin'
 | 'HandShake'
 | 'Home'
+| 'LendsqrLogo'
+| 'LendsqrLogoText'
 | 'MobileExchange'
 | 'MoneyBag'
 | 'MoneyLend'
@@ -33,5 +35,6 @@ export type IconName =
 | 'UserSetting'
 | 'Users'
 | 'UsersOutline'
+| 'WheelsSolid'
 ;
 

@@ -22,6 +22,7 @@ import reportsRoutes from '@/views/reports/reports.routes'
 import preferencesRoutes from '@/views/preferences/preferences.routes'
 import feesAndPricingRoutes from '@/views/fees-and-pricing/fees-and-pricing.routes'
 import auditLogsRoutes from '@/views/audit-logs/audit-logs.routes'
+import systemsMessagesRoutes from '@/views/systems-messages/systems-messages.routes'
 
 const routes = [
   {
@@ -50,6 +51,7 @@ const routes = [
       preferencesRoutes,
       feesAndPricingRoutes,
       auditLogsRoutes,
+      systemsMessagesRoutes,
     ],
   },
 ]
