@@ -66,6 +66,10 @@ function logout() {
     gap: 0;
     padding-inline: 0;
 
+    &:hover {
+      background-color: transparent;
+    }
+
     &::after {
       display: none;
     }

@@ -8,13 +8,14 @@ button:is(button.btn):nth-child(n) {
     border: rem-calc(1px) solid $primary-color;
     border-radius: rem-calc(8px);
     gap: rem-calc(8px);
+    letter-spacing: 1px;
     transition: background-color $default-transition-speed;
   }
 }
 
 .btn-primary:nth-child(n) {
   background-color: $primary-color;
-  color: white;
+  color: $white;
 
   &:hover,
   &:nth-child(n):active {
@@ -33,9 +34,9 @@ button.btn-secondary:nth-child(n) {
 
   &:hover,
   &:nth-child(n):active {
-    color: darken($primary-color, 10%);
-    border-color: darken($primary-color, 10%);
-    background-color: transparent;
+    color: $white;
+    border-color: transparent;
+    background-color: $primary-color;
   }
 
   &:nth-child(n):active:focus-visible {
@@ -43,9 +44,37 @@ button.btn-secondary:nth-child(n) {
   }
 }
 
+button:is(button.btn).btn-danger:nth-child(n) {
+  background-color: transparent;
+  color: $error-color;
+  border: rem-calc(1px) solid $error-color;
+
+  &:hover,
+  &:nth-child(n):active {
+    color: $white;
+    border: transparent;
+    background-color: $error-color;
+  }
+
+  &:nth-child(n):active:focus-visible {
+    box-shadow: unset;
+  }
+
+  &[disabled] {
+    color: $gray-shade-200;
+    border-color: $gray-shade-200;
+
+    &:hover,
+    &:nth-child(n):active {
+      color: $gray-shade-200;
+      border-color: $gray-shade-200;
+    }
+  }
+}
+
 .btn-regular {
   width: 100%;
-  min-height: rem-calc(48px);
+  min-height: rem-calc(40px);
 }
 
 .btn--fit {

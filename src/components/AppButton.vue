@@ -27,7 +27,7 @@ interface AppButtonProps {
    *
    * @default 'primary'
    */
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'danger'
 
   /**
    * The size type of the button. The possible values are 'regular' and 'small'.
