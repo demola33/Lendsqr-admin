@@ -49,9 +49,11 @@ onMounted(async () => {
   }
 
   &__title {
-    @include set-text-style('heading-6', 'medium');
+    @include set-text-style('body-text-lg', 'medium');
 
     & {
+      font-family: $font-family-base;
+      font-size: rem-calc(24px);
       margin-bottom: rem-calc(40px);
     }
   }
