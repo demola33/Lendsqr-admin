@@ -2,6 +2,7 @@
 // This file is generated automatically by the generateIcons.mjs script. Any changes will be overwritten.
 
 export type IconName = 
+| 'BackArrow'
 | 'BadgePercent'
 | 'BankSolid'
 | 'Bell'
@@ -24,6 +25,8 @@ export type IconName =
 | 'ScrollSolid'
 | 'SignOut'
 | 'SliderSetting'
+| 'StarFilled'
+| 'StarOutline'
 | 'SwirlingGalaxy'
 | 'UserCancel'
 | 'UserCheck'

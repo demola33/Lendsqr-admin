@@ -21,7 +21,7 @@ const isMobile = computed(() => {
       <BRow>
         <BCol>
           <main class="dashboard-layout__main">
-            <BContainer :fluid="isMobile" :class="{ 'p-0': isMobile }">
+            <BContainer fluid :class="{ 'p-0': isMobile }">
               <BRow>
                 <BCol>
                   <RouterView />

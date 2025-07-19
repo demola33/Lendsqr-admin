@@ -55,6 +55,7 @@ const employmentSectors = [
   'Government',
   'Real Estate',
 ]
+const banks = ['Access Bank', 'GTBank', 'UBA', 'Fidelity Bank', 'Zenith Bank', 'First Bank']
 const relationships = ['Sister', 'Brother', 'Mother', 'Father', 'Friend', 'Colleague', 'Spouse']
 const statuses: User['status'][] = ['Active', 'Inactive', 'Pending', 'Blacklisted']
 
@@ -94,6 +95,10 @@ export const generateMockUsers = (count = 500): User[] => {
       username: `${firstName}${lastName}`,
       dateJoined: generateDate(),
       status: statuses[Math.floor(Math.random() * statuses.length)],
+      rating: Math.floor(Math.random() * 3) + 1,
+      amount: (Math.floor(Math.random() * 50) + 10) * 10000,
+      bank: banks[Math.floor(Math.random() * banks.length)],
+      uuid: Math.random().toString(36).substring(2, 15),
     }
   })
 }
