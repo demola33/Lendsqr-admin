@@ -36,6 +36,12 @@
               v-bind="link"
             />
           </ul>
+          <ul class="app-navigation__bottom-link-list">
+            <AppNavigationItem :text="'Logout'" icon="SignOut" @click="logout" />
+            <li class="app-navigation__bottom-link-list-item">
+              <span class="app-navigation__bottom-link-list-item-text"> v1.2.0 </span>
+            </li>
+          </ul>
         </section>
       </BCol>
     </BRow>
@@ -54,6 +60,11 @@ import {
   dashboardModule,
 } from '@/constants/modules'
 import { useWindowSize } from '@vueuse/core'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const auth = useAuthStore()
+const router = useRouter()
 
 const { width } = useWindowSize()
 
@@ -119,6 +130,11 @@ const shownSettingsNavLinks = computed(() => {
   }
   return settingsNavLinks.value
 })
+
+const logout = () => {
+  auth.logout()
+  router.push('/login')
+}
 </script>
 <style scoped lang="scss">
 .app-navigation {
@@ -192,10 +208,14 @@ const shownSettingsNavLinks = computed(() => {
       align-items: start;
       gap: rem-calc(10px);
       height: auto;
-      max-height: calc(100vh - rem-calc(138px));
+      max-height: calc(
+        100vh - rem-calc(138px) - rem-calc(100px)
+      ); // 138px is the height of the icon container, 60px is the height of the bottom link list
       overflow-y: auto;
       scrollbar-width: none;
       overflow-x: hidden;
+      padding-bottom: rem-calc(50px);
+      border-bottom: rem-calc(1px) solid rgba($color: $primary-text-color, $alpha: 0.1);
     }
 
     &__nav-link-list-dashboard {
@@ -223,6 +243,31 @@ const shownSettingsNavLinks = computed(() => {
       align-items: center;
       width: rem-calc(84px);
       height: 100%;
+    }
+    &__bottom-link-list {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(16px);
+      justify-content: center;
+      width: 100%;
+      padding-bottom: rem-calc(30px);
+      border-bottom: 0;
+      // background-color: $primary-color;
+      transition-duration: $default-transition-speed;
+    }
+
+    &__bottom-link-list-item {
+      @include set-text-style('body-text-xxsm');
+
+      // @include flex-centered;
+      width: 100%;
+      margin-inline-start: rem-calc(30px);
+      color: $primary-text-color;
+      // margin-block: rem-calc(10px);
+      // height: rem-calc(40px);
+      // background-color: $primary-color;
     }
   }
 }

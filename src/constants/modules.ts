@@ -146,4 +146,10 @@ export const settingsModules: ModuleList = {
     link: '/audit-logs',
     isDesktopOnly: true,
   },
+  systemsMessages: {
+    name: 'Systems Messages',
+    icon: 'WheelsSolid',
+    link: '/systems-messages',
+    isDesktopOnly: true,
+  },
 }

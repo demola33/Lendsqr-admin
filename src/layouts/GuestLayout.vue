@@ -81,6 +81,7 @@ const signInImage = {
   &__image {
     width: 100%;
     object-fit: contain;
+    image-rendering: pixelated;
   }
 
   &__logo {
