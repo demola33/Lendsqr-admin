@@ -5,6 +5,7 @@ export interface User {
   phoneNumber: string
   email: string
   bvn: string
+  bank: string
   gender: string
   maritalStatus: string
   children: string
@@ -35,4 +36,8 @@ export interface User {
   username: string
   dateJoined: string
   status: 'Active' | 'Inactive' | 'Pending' | 'Blacklisted'
+
+  rating: number
+  amount: number
+  uuid: string
 }

@@ -20,5 +20,7 @@ export interface ImageProps {
 
 export interface AvatarProps {
   name: string
+  subtitle?: string
   image?: ImageProps
+  size?: 'small' | 'medium' | 'large'
 }

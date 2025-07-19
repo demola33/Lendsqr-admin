@@ -184,6 +184,15 @@ const toggleMobileMenu = () => {
     }
   }
 
+  &__notification {
+    cursor: pointer;
+    transition: scale 0.2s ease-in-out;
+
+    &:hover {
+      scale: 1.1;
+    }
+  }
+
   &__mobile-menu {
     position: relative;
   }
