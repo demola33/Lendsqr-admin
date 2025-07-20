@@ -16,3 +16,10 @@ export interface NavLink {
   /** Function to run when the link is clicked. */
   onClick?: (event: MouseEvent) => void
 }
+
+export interface DashboardCard {
+  icon: IconName
+  title: string
+  value: string
+  color: string
+}

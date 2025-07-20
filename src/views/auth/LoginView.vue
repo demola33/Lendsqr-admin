@@ -5,13 +5,13 @@ import type { AppInputProps } from '@/types'
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import AppIcon from '@/components/AppIcon.vue'
 
 const defaultAppInputEmailProps: AppInputProps = {
   id: 'email',
-  label: 'Email',
+  label: '',
   type: 'email',
   placeholder: 'Enter your email',
-  required: true,
   state: null,
   disabled: false,
   trim: true,
@@ -21,9 +21,9 @@ const defaultAppInputEmailProps: AppInputProps = {
 
 const defaultAppInputPasswordProps: AppInputProps = {
   id: 'password',
-  label: 'Password',
+  label: '',
+  placeholder: 'Password',
   type: 'password',
-  required: true,
   name: 'password',
 }
 const inputEmailText = ref<string>('admin@smartlenders.com')
@@ -53,6 +53,11 @@ const handleLogin = async () => {
 
 <template>
   <main class="login-view">
+    <div class="login-view__logo">
+      <AppIcon name="LendsqrLogo" size="large" />
+      <AppIcon name="LendsqrLogoText" size="large" />
+    </div>
+
     <h1>Welcome!</h1>
     <p class="login-view__subtitle">Enter details to login.</p>
     <form @submit.prevent="handleLogin" class="login-view__form">
@@ -61,9 +66,7 @@ const handleLogin = async () => {
         <AppInput v-bind="defaultAppInputPasswordProps" v-model="inputPasswordText" />
       </fieldset>
       <span class="login-view__forgot-password-prompt">
-        <RouterLink class="login-view__forgot-password-link" to="/forgot-password">
-          Forgot Password?
-        </RouterLink>
+        <RouterLink class="login-view__forgot-password-link" to="/"> Forgot Password? </RouterLink>
       </span>
       <span v-if="error" class="login-view__error-message">{{ error }}</span>
       <AppButton
@@ -72,6 +75,7 @@ const handleLogin = async () => {
         class="login-view__login-button"
         :disabled="loading"
       >
+        <span v-if="loading" class="login-view__button-spinner"></span>
         {{ loading ? 'Loading...' : 'Login' }}
       </AppButton>
     </form>
@@ -84,6 +88,21 @@ const handleLogin = async () => {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+
+  &__logo {
+    @include flex-centered;
+
+    & {
+      width: 100%;
+      gap: rem-calc(10px);
+      align-items: flex-start;
+      margin-bottom: rem-calc(100px);
+    }
+
+    @include media('>medium') {
+      display: none;
+    }
+  }
 
   &__subtitle {
     @include set-text-style('body-text-lg');
@@ -122,6 +141,25 @@ const handleLogin = async () => {
 
   &__login-button {
     margin-top: rem-calc(24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: rem-calc(8px);
+  }
+
+  &__button-spinner {
+    border: rem-calc(2px) solid rgba(255, 255, 255, 0.3);
+    border-left-color: $white;
+    border-radius: 50%;
+    width: rem-calc(16px);
+    height: rem-calc(16px);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   &__error-message {

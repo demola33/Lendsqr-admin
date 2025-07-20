@@ -19,12 +19,12 @@ const isLoading = ref(true)
 
 const { width } = useWindowSize()
 
-const isMobile = computed(() => {
-  return width.value <= 768
+const isTablet = computed(() => {
+  return width.value <= 1024
 })
 
 const avatarSize = computed(() => {
-  return isMobile.value ? 'medium' : 'large'
+  return isTablet.value ? 'medium' : 'large'
 })
 
 onMounted(async () => {
@@ -287,7 +287,7 @@ onMounted(async () => {
     flex-direction: column;
     gap: 0;
 
-    @include media('>medium') {
+    @include media('>large') {
       padding-inline: rem-calc(30px);
       flex-direction: row;
       align-items: center;
@@ -301,7 +301,7 @@ onMounted(async () => {
       width: 100%;
       background-color: $secondary-text-color;
 
-      @include media('>medium') {
+      @include media('>large') {
         min-height: rem-calc(1px);
         width: rem-calc(1px);
       }
@@ -314,7 +314,7 @@ onMounted(async () => {
 
     justify-content: center;
 
-    @include media('>medium') {
+    @include media('>large') {
       align-items: center;
     }
 
@@ -342,7 +342,7 @@ onMounted(async () => {
       justify-content: center;
       color: $primary-text-color;
 
-      @include media('>medium') {
+      @include media('>large') {
         font-size: rem-calc(22px);
       }
     }
@@ -423,7 +423,7 @@ onMounted(async () => {
     padding-inline: rem-calc(30px);
     padding-block: rem-calc(30px);
 
-    @include media('>medium') {
+    @include media('>large') {
       position: absolute;
       top: rem-calc(210px);
     }

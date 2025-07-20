@@ -16,3 +16,11 @@ p {
     color: $secondary-text-color;
   }
 }
+
+html:has(.app-header__mobile-menu-col),
+html:has(.app-header__mobile-menu-col) body,
+html:has(.app-header__mobile-menu-col) body .bh-table-responsive,
+html:has(.modal-dialog.show),
+html:has(.modal-dialog.show) body {
+  overflow-y: hidden;
+}

@@ -13,6 +13,7 @@ export type IconName =
 | 'CoinSolid'
 | 'EyeIcon'
 | 'FileCoin'
+| 'FilterSolid'
 | 'HandShake'
 | 'Home'
 | 'LendsqrLogo'
