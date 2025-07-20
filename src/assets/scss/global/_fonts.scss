@@ -1,11 +1,7 @@
-/* Import Google Fonts as fallback */
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
-
-/* Avenir Next - Using system fonts as fallback since local files are corrupted */
-/* Fallback to system fonts for Avenir Next */
+/* Avenir Next */
 @font-face {
   font-family: 'Avenir Next';
-  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  src: url('/fonts/Avenir-Next/Avenir-Next-LT-Pro-Regular.otf') format('opentype');
   font-weight: 400; /* Regular */
   font-style: normal;
   font-display: swap;
@@ -13,17 +9,16 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: local('Arial Bold'), local('Helvetica Bold'), local('sans-serif');
+  src: url('/fonts/Avenir-Next/Avenir-Next-LT-Pro-Bold.otf') format('opentype');
   font-weight: 700; /* Bold */
   font-style: normal;
   font-display: swap;
 }
 
-/* Work Sans - Using Google Fonts */
+/* Work Sans */
 @font-face {
   font-family: 'Work Sans';
-  src: url('https://fonts.gstatic.com/s/worksans/v18/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K0nXBi8JowbT2Y9.woff2')
-    format('woff2');
+  src: url('/fonts/Work-Sans/WorkSans-Regular.ttf') format('truetype');
   font-weight: 400; /* Regular */
   font-style: normal;
   font-display: swap;
@@ -31,8 +26,7 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('https://fonts.gstatic.com/s/worksans/v18/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K3vXBi8JowbT2Y9.woff2')
-    format('woff2');
+  src: url('/fonts/Work-Sans/WorkSans-Medium.ttf') format('truetype');
   font-weight: 500; /* Medium */
   font-style: normal;
   font-display: swap;
@@ -40,8 +34,7 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('https://fonts.gstatic.com/s/worksans/v18/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K5vXBi8JowbT2Y9.woff2')
-    format('woff2');
+  src: url('/fonts/Work-Sans/WorkSans-SemiBold.ttf') format('truetype');
   font-weight: 600; /* SemiBold */
   font-style: normal;
   font-display: swap;
@@ -49,8 +42,7 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('https://fonts.gstatic.com/s/worksans/v18/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K7vXBi8JowbT2Y9.woff2')
-    format('woff2');
+  src: url('/fonts/Work-Sans/WorkSans-Bold.ttf') format('truetype');
   font-weight: 700; /* Bold */
   font-style: normal;
   font-display: swap;
@@ -58,8 +50,7 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('https://fonts.gstatic.com/s/worksans/v18/QGY_z_wNahGAdqQ43RhVcIgYT2Xz5u32K9vXBi8JowbT2Y9.woff2')
-    format('woff2');
+  src: url('/fonts/Work-Sans/WorkSans-ExtraBold.ttf') format('truetype');
   font-weight: 800; /* ExtraBold */
   font-style: normal;
   font-display: swap;
