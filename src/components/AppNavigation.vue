@@ -6,6 +6,17 @@
         <section>
           <ul class="app-navigation__nav-link-list">
             <AppNavigationItem
+              v-show="!isMobile"
+              :text="switchOrganizationModule.name"
+              :icon="switchOrganizationModule.icon"
+              class="app-navigation__nav-link-list-dashboard"
+            >
+              <template #default>
+                <AppIcon name="CaretDown" class="app-navigation__nav-link-list-dashboard-icon" />
+              </template>
+            </AppNavigationItem>
+
+            <AppNavigationItem
               :text="dashboardModule.name"
               :icon="dashboardModule.icon"
               :to="dashboardModule.link"
@@ -58,10 +69,12 @@ import {
   businessModules,
   settingsModules,
   dashboardModule,
+  switchOrganizationModule,
 } from '@/constants/modules'
 import { useWindowSize } from '@vueuse/core'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import AppIcon from './AppIcon.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -164,6 +177,13 @@ const logout = () => {
 
   &__bottom-link-list {
     display: none;
+  }
+
+  &__nav-link-list-dashboard-icon {
+    color: $primary-text-color;
+    margin-left: rem-calc(9px);
+    width: rem-calc(14px);
+    height: rem-calc(14px);
   }
 }
 

@@ -17,6 +17,13 @@ export const dashboardModule: Module = {
   link: '/home',
 }
 
+export const switchOrganizationModule: Module = {
+  name: 'Switch Organization',
+  icon: 'BriefCase',
+  link: '/switch-organization',
+  isDesktopOnly: true,
+}
+
 /**
  * A mapping of module names to their display name and icon.
  * This constant is used throughout the application to provide a consistent
