@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
       this.adminUser = null
       this.token = null
       localStorage.removeItem('authToken')
+      localStorage.removeItem('auth')
     },
   },
   getters: {
