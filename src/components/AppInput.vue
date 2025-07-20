@@ -1,6 +1,6 @@
 <template>
   <BFormGroup :floating="floatingLabel" class="app-input">
-    <label :for="id" class="form-label d-block">
+    <label v-if="label" :for="id" class="form-label d-block">
       {{ label }}<span v-if="required" class="text-danger">*</span>
     </label>
     <BFormInput
@@ -57,7 +57,7 @@ const {
   name = '',
   hint = '',
   inputClass = '',
-  floatingLabel = true,
+  floatingLabel = false,
 } = defineProps<AppInputProps>()
 
 const emit = defineEmits<{
