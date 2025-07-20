@@ -8,7 +8,7 @@ const ADMIN_USERS: AdminUser[] = [
     email: 'admin@smartlenders.com',
     role: 'admin',
     organization: 'global',
-    imageUrl: 'https://i.pravatar.cc/300',
+    imageUrl: '',
   },
 ]
 

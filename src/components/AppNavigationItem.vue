@@ -136,7 +136,7 @@ const navLinkItemClasses = computed(() => [
       display: inline-block;
       align-items: center;
       text-wrap: nowrap;
-      width: rem-calc(150px);
+      max-width: rem-calc(180px);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

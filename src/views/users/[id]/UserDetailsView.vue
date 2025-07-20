@@ -11,6 +11,7 @@ import AppAvatar from '@/components/AppAvatar.vue'
 import { TabsContent, TabsIndicator, TabsTrigger } from 'reka-ui'
 import AppInfoSection from '@/components/AppInfoSection.vue'
 import { useWindowSize } from '@vueuse/core'
+import { motion } from 'motion-v'
 
 const route = useRoute()
 const router = useRouter()
@@ -41,12 +42,25 @@ onMounted(async () => {
 
 <template>
   <div class="user-details-view">
-    <div class="user-details-view__back" @click="router.push('/users')">
+    <motion.div
+      class="user-details-view__back"
+      @click="router.push('/users')"
+      :initial="{ opacity: 0, x: -100 }"
+      :animate="{ opacity: 1, x: 0 }"
+      :transition="{ duration: 0.5, ease: 'easeInOut' }"
+    >
       <AppIcon name="BackArrow" />
       <span>Back to Users</span>
-    </div>
+    </motion.div>
     <div class="user-details-view__header">
-      <h1 class="user-details-view__title">User Details</h1>
+      <motion.h1
+        class="user-details-view__title"
+        :initial="{ opacity: 0 }"
+        :animate="{ opacity: 1 }"
+        :transition="{ duration: 0.5, ease: 'easeOut' }"
+      >
+        User Details
+      </motion.h1>
       <div class="user-details-view__actions">
         <AppButton
           variant="danger"
@@ -72,6 +86,11 @@ onMounted(async () => {
       <template #header>
         <div class="user-details-view__tabs-header">
           <AppAvatar
+            :image="{
+              src:
+                user?.gender === 'Male' ? '/images/male-avatar.jpg' : '/images/female-avatar.jpg',
+              alt: `${user?.fullName || ''}'s avatar`,
+            }"
             :name="user?.fullName || ''"
             :subtitle="user?.email || ''"
             :size="avatarSize"
