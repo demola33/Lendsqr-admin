@@ -1,5 +1,8 @@
 <template>
-  <BFormGroup :id="id" floating>
+  <BFormGroup :floating="floatingLabel" class="app-input">
+    <label :for="id" class="form-label d-block">
+      {{ label }}<span v-if="required" class="text-danger">*</span>
+    </label>
     <BFormInput
       :id="id"
       v-model="model"
@@ -11,6 +14,7 @@
       :required="required"
       :trim="trim"
       :name="name"
+      autocomplete="on"
       :class="inputClass"
     />
     <template v-if="type === 'password'">
@@ -21,17 +25,15 @@
           cursor: pointer;
           user-select: none;
           position: absolute;
-          right: 1rem;
-          top: 50%;
+          right: 1.5rem;
+          top: 60%;
           transform: translateY(-50%);
         "
       >
-        {{ isPasswordVisible ? 'Hide' : 'Show' }}
+        {{ isPasswordVisible ? 'HIDE' : 'SHOW' }}
       </span>
     </template>
-    <label :for="id" class="form-label d-block">
-      {{ label }}<span v-if="required" class="text-danger">*</span>
-    </label>
+
     <small v-if="hint" class="form-text text-muted">{{ hint }}</small>
   </BFormGroup>
 </template>
@@ -55,6 +57,7 @@ const {
   name = '',
   hint = '',
   inputClass = '',
+  floatingLabel = true,
 } = defineProps<AppInputProps>()
 
 const emit = defineEmits<{
@@ -80,15 +83,30 @@ function togglePasswordVisibility() {
 </script>
 
 <style lang="scss" scoped>
+.app-input {
+  position: relative;
+}
+
 .form-label {
   font-size: rem-calc(14px);
-  color: rgba($color: $secondary-text-color, $alpha: 0.6);
+  font-weight: 500;
+  color: $secondary-text-color;
 }
 
 .form-control {
   border: rem-calc(2px) solid rgba($color: $secondary-text-color, $alpha: 15%);
   min-height: rem-calc(50px);
   height: rem-calc(50px);
+
+  &::placeholder {
+    color: rgba($color: $secondary-text-color, $alpha: 0.6);
+  }
+
+  &:focus {
+    border-color: $primary-color;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba($color: $primary-color, $alpha: 0.25);
+  }
 }
 
 .input-suffix {

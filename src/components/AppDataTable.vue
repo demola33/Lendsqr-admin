@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue'
+import { computed, nextTick, type PropType, ref, watchEffect } from 'vue'
 import type { User } from '@/types'
 // @ts-expect-error: Type declarations for '@bhplugin/vue3-datatable' are not resolved correctly.
 import Vue3Datatable from '@bhplugin/vue3-datatable'
@@ -29,10 +29,13 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits(['filterIconClick'])
+
 const router = useRouter()
 
+const contentRef = ref<HTMLElement | null>(null)
+
 const viewDetails = (row: User) => {
-  console.log('View details', row)
   router.push({ name: 'UserDetails', params: { id: row.id } })
 }
 
@@ -49,54 +52,136 @@ const activateUser = (row: User) => {
 const isLoading = computed(() => {
   return props.isLoading
 })
+
+const funnel = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.22222 13.3333H9.77778V11.5555H6.22222V13.3333ZM0 2.66666V4.44443H16V2.66666H0ZM2.66667 8.88888H13.3333V7.1111H2.66667V8.88888Z" fill="#545F7D"/>
+</svg>
+`
+
+const trackSortHeaders = () => {
+  if (!contentRef.value) return
+  const content = contentRef.value
+
+  const tableHeadings = content.querySelectorAll<HTMLTableCellElement>(
+    'thead > tr > th:not(:last-child)',
+  )
+  for (const [index, heading] of tableHeadings.entries()) {
+    const column = columns?.[index].field
+    const columnName = column?.toString()
+    heading.dataset.columnName = columnName
+
+    // Hide sort icons.
+    const sort = heading.querySelector('svg') as HTMLElement | null
+    if (column) {
+      sort?.style.setProperty('display', 'none')
+    }
+  }
+}
+
+/**
+ * Adds filter icons to the table headers, excluding those with checkboxes.
+ * It attaches click event listeners to the icons for filtering functionality.
+ */
+const insertHeaderIcons = async () => {
+  await nextTick()
+  if (!contentRef.value) return
+
+  const content = contentRef.value
+
+  const tableHeadings = content.querySelectorAll<HTMLTableCellElement>(
+    'thead > tr > th:not(:last-child)',
+  )
+
+  for (const heading of tableHeadings) {
+    const container = heading.firstChild as HTMLElement
+    const columnName = heading.dataset.columnName
+
+    if (!container || !columnName) continue
+
+    const slotContainer =
+      container.querySelector('.app-data-table__filter-icon') ?? document.createElement('span')
+
+    slotContainer.classList.add('app-data-table__filter-icon')
+
+    container.append(slotContainer)
+
+    const funnelSvg = document.createRange().createContextualFragment(funnel).firstChild as Element
+
+    funnelSvg.id = `table-filter-icon-${columnName}`
+
+    // const iconIsActive: boolean = activeFilters.value?.includes(columnName as keyof T)
+
+    const iconCallback = (event: Event) => {
+      event.stopPropagation()
+      const target = event.currentTarget as Element
+      const rect = target.getBoundingClientRect()
+      emit('filterIconClick', event, columnName, rect)
+    }
+
+    funnelSvg.addEventListener('click', iconCallback)
+    funnelSvg.classList.add('data-table__header-icon')
+
+    slotContainer.replaceChildren(funnelSvg)
+  }
+}
+
+watchEffect(() => {
+  if (!contentRef.value || !columns) return
+
+  nextTick(() => {
+    trackSortHeaders()
+    insertHeaderIcons()
+  })
+})
 </script>
 
 <template>
-  <Vue3Datatable
-    :loading="isLoading"
-    :rows="props.rows"
-    :columns="columns"
-    :totalRows="props.rows.length"
-    :sortable="true"
-    :showFirstPage="false"
-    :showLastPage="false"
-    :stickyHeader="true"
-    :rowsPerPageOptions="[10, 25, 50, 100]"
-    class="app-data-table"
-    @row-click="viewDetails"
-  >
-    <template #status="data">
-      <span
-        class="app-data-table__status-pill"
-        :class="`app-data-table__status-pill--${(data.value.status as string).toLowerCase()}`"
-        >{{ data.value.status }}</span
-      >
-    </template>
-    <template #actions="data">
-      <span @click.stop>
-        <BDropdown variant="link" toggle-class="text-decoration-none" no-caret>
-          <template #button-content>
-            <AppIcon name="MoreVertical" />
-          </template>
-          <BDropdownItem @click="viewDetails(data.value)">
-            <AppIcon name="EyeIcon" class="app-data-table__icon" /> View Details
-          </BDropdownItem>
-          <BDropdownItem
-            @click="blacklistUser(data.value)"
-            :disabled="data.value.status === 'Blacklisted'"
-          >
-            <AppIcon name="UserCancel" class="app-data-table__icon" /> Blacklist User
-          </BDropdownItem>
-          <BDropdownItem
-            @click="activateUser(data.value)"
-            :disabled="data.value.status === 'Active'"
-          >
-            <AppIcon name="UserCheck" class="app-data-table__icon" /> Activate User
-          </BDropdownItem>
-        </BDropdown>
-      </span>
-    </template>
-  </Vue3Datatable>
+  <div ref="contentRef" class="app-data-table">
+    <Vue3Datatable
+      :loading="isLoading"
+      :rows="rows"
+      :columns="columns"
+      :totalRows="rows.length"
+      :sortable="false"
+      :showFirstPage="false"
+      :showLastPage="false"
+      :stickyHeader="true"
+      :rowsPerPageOptions="[10, 25, 50, 100]"
+      @row-click="viewDetails"
+    >
+      <template #status="data">
+        <span
+          class="app-data-table__status-pill"
+          :class="`app-data-table__status-pill--${(data.value.status as string).toLowerCase()}`"
+          >{{ data.value.status }}</span
+        >
+      </template>
+      <template #actions="data">
+        <span @click.stop>
+          <BDropdown variant="link" toggle-class="text-decoration-none" no-caret>
+            <template #button-content>
+              <AppIcon name="MoreVertical" />
+            </template>
+            <BDropdownItem @click="viewDetails(data.value)">
+              <AppIcon name="EyeIcon" class="app-data-table__icon" /> View Details
+            </BDropdownItem>
+            <BDropdownItem
+              @click="blacklistUser(data.value)"
+              :disabled="data.value.status === 'Blacklisted'"
+            >
+              <AppIcon name="UserCancel" class="app-data-table__icon" /> Blacklist User
+            </BDropdownItem>
+            <BDropdownItem
+              @click="activateUser(data.value)"
+              :disabled="data.value.status === 'Active'"
+            >
+              <AppIcon name="UserCheck" class="app-data-table__icon" /> Activate User
+            </BDropdownItem>
+          </BDropdown>
+        </span>
+      </template>
+    </Vue3Datatable>
+  </div>
 </template>
 
 <style lang="scss">
@@ -105,6 +190,11 @@ const isLoading = computed(() => {
     width: rem-calc(16px);
     height: rem-calc(16px);
     margin-right: rem-calc(8px);
+  }
+
+  &__filter-icon {
+    cursor: pointer;
+    margin-left: rem-calc(10px);
   }
 
   thead > tr:is(tr) {

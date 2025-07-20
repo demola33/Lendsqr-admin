@@ -9,10 +9,9 @@ import AppIcon from '@/components/AppIcon.vue'
 
 const defaultAppInputEmailProps: AppInputProps = {
   id: 'email',
-  label: 'Email',
+  label: '',
   type: 'email',
   placeholder: 'Enter your email',
-  required: true,
   state: null,
   disabled: false,
   trim: true,
@@ -22,9 +21,9 @@ const defaultAppInputEmailProps: AppInputProps = {
 
 const defaultAppInputPasswordProps: AppInputProps = {
   id: 'password',
-  label: 'Password',
+  label: '',
+  placeholder: 'Password',
   type: 'password',
-  required: true,
   name: 'password',
 }
 const inputEmailText = ref<string>('admin@smartlenders.com')
