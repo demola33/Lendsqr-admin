@@ -169,7 +169,7 @@ const submitFilterQuery = () => {
           v-model="filter.organization"
           id="organization"
           label="Organization"
-          :options="uniqueOrganizations.map((org) => ({ label: org, value: org }))"
+          :options="uniqueOrganizations.map((org: string) => ({ label: org, value: org }))"
           placeholder="Select"
         />
         <AppInput
@@ -205,7 +205,7 @@ const submitFilterQuery = () => {
           v-model="filter.status"
           id="status"
           label="Status"
-          :options="statusOptions.map((status) => ({ label: status, value: status }))"
+          :options="statusOptions.map((status: string) => ({ label: status, value: status }))"
           placeholder="Select"
         />
       </form>
