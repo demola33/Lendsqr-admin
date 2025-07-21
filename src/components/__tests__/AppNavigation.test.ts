@@ -18,6 +18,9 @@ describe('AppNavigation', () => {
     setActivePinia(pinia)
     // Register the store so it has actions/getters
     useAuthStore()
+    // Mock the logout action
+    // @ts-expect-error: mock logout for test
+    useAuthStore().logout = vi.fn()
   })
   it('renders navigation links (positive)', () => {
     const wrapper = mount(AppNavigation)
