@@ -72,7 +72,7 @@ router.beforeEach((to) => {
 
   // Redirect to dashboard if user is authenticated and tries to access login
   if (to.name === 'login' && authStore.isAuthenticated) {
-    return { name: 'home' }
+    return { name: 'Home' }
   }
 })
 
