@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import AppNavigation from '../AppNavigation.vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { vi } from 'vitest'
+import { useAuthStore } from '@/stores/auth'
 
 vi.mock('vue-router', () => ({
   useRouter: vi.fn(() => ({
@@ -15,6 +16,8 @@ describe('AppNavigation', () => {
   beforeEach(() => {
     const pinia = createPinia()
     setActivePinia(pinia)
+    // Register the store so it has actions/getters
+    useAuthStore()
   })
   it('renders navigation links (positive)', () => {
     const wrapper = mount(AppNavigation)
