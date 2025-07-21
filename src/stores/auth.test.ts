@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { useAuthStore } from '@/stores/auth'
 import * as authService from '@/services/auth'
 import type { AdminUser } from '@/types'
@@ -12,7 +11,6 @@ describe('Auth Store', () => {
 
   beforeEach(() => {
     pinia = createPinia()
-    pinia.use(piniaPluginPersistedstate)
     setActivePinia(pinia)
     localStorage.clear()
   })

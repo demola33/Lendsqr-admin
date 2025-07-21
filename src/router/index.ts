@@ -71,6 +71,15 @@ router.beforeEach((to) => {
   }
 
   // Redirect to dashboard if user is authenticated and tries to access login
+  if (authStore.adminUser === null && authStore.isAuthenticated) {
+    const user = authStore.getAuthUser()
+    if (user) {
+      return { name: 'Home' }
+    }
+    return { name: 'login' }
+  }
+
+  // Redirect to dashboard if user is authenticated and tries to access login
   if (to.name === 'login' && authStore.isAuthenticated) {
     return { name: 'Home' }
   }
