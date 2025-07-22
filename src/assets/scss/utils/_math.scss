@@ -35,8 +35,8 @@
     $exponent: round($exponent * $prec2);
     $denominator: gcd($exponent, $prec2);
     @return nth-root(
-      pow($base, customDivide($exponent, $denominator)),
-      customDivide($prec2, $denominator),
+      pow($base, divide($exponent, $denominator)),
+      divide($prec2, $denominator),
       $prec
     );
   }
@@ -48,7 +48,7 @@
     }
   } @else if $exponent < 1 {
     @for $i from 0 through -$exponent {
-      $value: customDivide($value, $base);
+      $value: divide($value, $base);
     }
   }
 
@@ -60,8 +60,7 @@
   $x: 1;
 
   @for $i from 0 through $prec {
-    $x: customDivide(1, $n) *
-      (($n - 1) * $x + customDivide($num, pow($x, $n - 1)));
+    $x: divide(1, $n) * (($n - 1) * $x + divide($num, pow($x, $n - 1)));
   }
 
   @return $x;
@@ -73,7 +72,7 @@
 @function ratio-to-percentage($ratio) {
   $w: nth($ratio, 1);
   $h: nth($ratio, 3);
-  @return customDivide($h, $w) * 100%;
+  @return divide($h, $w) * 100%;
 }
 
 /// Parse the given `$fraction` to numerators and denumerators.
@@ -119,8 +118,7 @@
 @function zf-is-fraction($value, $allow-no-denominator: false) {
   $parsed: zf-parse-fraction($value);
   @return not(
-    nth($parsed, 1) == null or
-      (nth($parsed, 2) == null and $allow-no-denominator == false)
+    nth($parsed, 1) == null or (nth($parsed, 2) == null and $allow-no-denominator == false)
   );
 }
 
@@ -144,7 +142,7 @@
     }
   }
 
-  @return percentage(customDivide($parsed-nominator, $parsed-denominator));
+  @return percentage(divide($parsed-nominator, $parsed-denominator));
 }
 
 /// Divide the given `$divident` by the given `$divisor`.
@@ -154,12 +152,8 @@
 /// @param {Number} $precision - The precision decimals for the division.
 ///
 /// @return {Number} The product of the division.
-@function customDivide($dividend, $divisor, $precision: 12) {
-  $sign: if(
-    $dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0,
-    1,
-    -1
-  );
+@function divide($dividend, $divisor, $precision: 12) {
+  $sign: if($dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0, 1, -1);
   $dividend: math.abs($dividend);
   $divisor: math.abs($divisor);
   @if $dividend == 0 {
@@ -194,28 +188,9 @@
     'em': 1em,
     '%': 1%,
   );
-  @if (
-    $dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)
-  ) {
+  @if ($dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)) {
     $result: $result * map-get($unit-map, $dividend-unit);
   }
 
   @return $result;
-}
-
-/// Returns the number of keys in a map.
-///
-/// @param {Map} $map - Map to get the length of.
-///
-/// @return {Number} Number of keys in the map.
-@function map-length($map) {
-  $count: 0; // Initialize the count to 0
-
-  // Iterate through the map and increment the count for each key
-  @each $key, $value in $map {
-    $count: $count + 1;
-  }
-
-  // Return the final count
-  @return $count;
 }

@@ -27,6 +27,7 @@ import { TabsList, TabsRoot } from 'reka-ui'
     flex-shrink: 0;
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: none;
     border-bottom: rem-calc(1px) solid rgba($color: $primary-text-color, $alpha: 0.06);
   }

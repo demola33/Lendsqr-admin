@@ -21,5 +21,5 @@ export interface DashboardCard {
   icon: IconName
   title: string
   value: string
-  color: string
+  color?: string
 }

@@ -135,7 +135,7 @@ const submitFilterQuery = () => {
           :icon="card.icon"
           :title="card.title"
           :value="card.value"
-          :color="card.color"
+          :color="card?.color ?? ''"
         />
       </motion.div>
     </motion.div>
