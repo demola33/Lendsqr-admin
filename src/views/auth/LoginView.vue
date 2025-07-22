@@ -65,15 +65,15 @@ const handleLogin = async () => {
         <AppInput v-bind="defaultAppInputEmailProps" v-model="inputEmailText" />
         <AppInput v-bind="defaultAppInputPasswordProps" v-model="inputPasswordText" />
       </fieldset>
-      <span class="login-view__forgot-password-prompt">
+      <h6 class="login-view__forgot-password-prompt">
         <RouterLink class="login-view__forgot-password-link" to="/"> Forgot Password? </RouterLink>
-      </span>
+      </h6>
       <span v-if="error" class="login-view__error-message">{{ error }}</span>
       <AppButton
         variant="primary"
         size="regular"
         class="login-view__login-button"
-        :disabled="loading"
+        :disabled="loading || inputEmailText === '' || inputPasswordText === ''"
       >
         <span v-if="loading" class="login-view__button-spinner"></span>
         {{ loading ? 'Loading...' : 'Login' }}
